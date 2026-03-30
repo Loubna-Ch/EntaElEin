@@ -1,5 +1,3 @@
-import * as ev from 'express-validator';
-const errors = ev.validationResult(req);
 {
   "compilerOptions": {
     

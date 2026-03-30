@@ -1,7 +1,6 @@
-import { body } from 'express-validator';
-import validate from '../middlewares/validate';
-
-export const userRules = [
+import { body } from 'express-validator/lib/check';
+import validate from '../middlewares/valiadate';
+export const userValidators = [
     body('username')
         .trim()
         .notEmpty()
