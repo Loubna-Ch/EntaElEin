@@ -14,7 +14,6 @@ export const authorize = (allowedRoles: string[] = []) => {
             return next(ApiError.unauthorized('Authentication required'));
         }
 
-        // Check if the user's role is in the allowed list
         if (allowedRoles.length > 0 && !allowedRoles.includes(req.user.userType)) {
             return next(
                 ApiError.forbidden(

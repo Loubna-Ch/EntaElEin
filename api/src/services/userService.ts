@@ -32,7 +32,7 @@ class UserService {
     role?: string;
     regionid?: number;
   }) {
-    // Business Logic Check: Ensure email isn't taken
+
     const existingUser = await UserRepository.findByEmail(data.email);
     if (existingUser) {
       throw ApiError.conflict('A user with this email already exists');

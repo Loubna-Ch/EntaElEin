@@ -1,9 +1,6 @@
 import { body } from 'express-validator';
 import validate from '../middlewares/validate';
 
-/**
- * Validation rules for New User Registration.
- */
 export const registerRules = [
     body('username')
         .trim()
@@ -41,9 +38,6 @@ export const registerRules = [
     validate,
 ];
 
-/**
- * Validation rules for User Login.
- */
 export const loginRules = [
     body('email')
         .trim()
