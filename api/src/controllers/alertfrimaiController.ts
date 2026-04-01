@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import RegionService from '../services/regionService';
+import AlertFromAiService from '../services/alertfromaiService';
 
-export class RegionController {
+export class AlertFromAiController {
 
   static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const regions = await RegionService.getAll();
-      return res.json(regions);
+      const alerts = await AlertFromAiService.getAll();
+      return res.json(alerts);
     } catch (err) {
       next(err);
     }
@@ -15,8 +15,8 @@ export class RegionController {
   static async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params; 
-      const region = await RegionService.getById(Number(id));
-      return res.json(region);
+      const alert = await AlertFromAiService.getById(Number(id));
+      return res.json(alert);
     } catch (err) {
       next(err);
     }
@@ -25,12 +25,12 @@ export class RegionController {
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const body = req.body; 
-      const region = await RegionService.create(body);
+      const alert = await AlertFromAiService.create(body);
 
       const io = req.app.get('socketio');
-      if (io) io.emit('region-added', region);
+      if (io) io.emit('alert-from-ai-added', alert);
 
-      return res.status(201).json(region);
+      return res.status(201).json(alert);
     } catch (err) {
       next(err);
     }
@@ -40,12 +40,12 @@ export class RegionController {
     try {
       const { id } = req.params;
       const body = req.body;
-      const region = await RegionService.update(Number(id), body);
+      const alert = await AlertFromAiService.update(Number(id), body);
 
       const io = req.app.get('socketio');
-      if (io) io.emit('region-updated', region);
+      if (io) io.emit('alert-from-ai-updated', alert);
 
-      return res.json(region);
+      return res.json(alert);
     } catch (err) {
       next(err);
     }
@@ -54,10 +54,10 @@ export class RegionController {
   static async remove(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      await RegionService.remove(Number(id));
+      await AlertFromAiService.remove(Number(id));
 
       const io = req.app.get('socketio');
-      if (io) io.emit('region-deleted', id);
+      if (io) io.emit('alert-from-ai-deleted', id);
 
       return res.status(204).send();
     } catch (err) {
