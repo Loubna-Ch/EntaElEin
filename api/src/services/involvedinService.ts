@@ -6,10 +6,10 @@ class InvolvedInService {
     return await InvolvedInRepository.findAll();
   }
 
-  static async getById(id: number) {
-    const involvedIn = await InvolvedInRepository.findById(id);
+  static async getByIds(participantid: number, reportid: number) {
+    const involvedIn = await InvolvedInRepository.findByIds(participantid, reportid);
     if (!involvedIn) {
-      throw ApiError.notFound(`InvolvedIn with id ${id} not found`);
+      throw ApiError.notFound(`InvolvedIn link between Participant ${participantid} and Report ${reportid} not found`);
     }
     return involvedIn;
   }
@@ -22,27 +22,27 @@ class InvolvedInService {
   }
 
   static async update(
-    id: number,
+    oldParticipantId: number,
+    oldReportId: number,
     updateData: {
       participantid: number;
       reportid: number;
     },
   ) {
-    const involvedIn = await InvolvedInRepository.update(id, updateData);
+    const involvedIn = await InvolvedInRepository.update(oldParticipantId, oldReportId, updateData);
     if (!involvedIn) {
-      throw ApiError.notFound(`InvolvedIn with id ${id} not found`);
+      throw ApiError.notFound(`Could not update: InvolvedIn link not found`);
     }
     return involvedIn;
   }
 
-  static async remove(id: number) {
-    const deleted = await InvolvedInRepository.remove(id);
+  static async remove(participantid: number, reportid: number) {
+    const deleted = await InvolvedInRepository.remove(participantid, reportid);
     if (!deleted) {
-      throw ApiError.notFound(`InvolvedIn with id ${id} not found`);
+      throw ApiError.notFound(`InvolvedIn link not found`);
     }
-    return { success: true, message: 'InvolvedIn deleted' };
+    return { success: true, message: 'InvolvedIn link deleted successfully' };
   }
 }
 
 export default InvolvedInService;
-  

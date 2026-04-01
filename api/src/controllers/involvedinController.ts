@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import InvolvedInService from '../services/involvedinService';
-import RegionService from 'src/services/regionService';
 
 export class InvolvedInController {
 
@@ -13,11 +12,11 @@ export class InvolvedInController {
     }
   }
 
-  static async getById(req: Request, res: Response, next: NextFunction) {
+  static async getByIds(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params; 
-      const user = await InvolvedInService.getById(Number(id));
-      return res.json(user);
+      const { participantid, reportid } = req.params; 
+      const result = await InvolvedInService.getByIds(Number(participantid), Number(reportid));
+      return res.json(result);
     } catch (err) {
       next(err);
     }
@@ -26,12 +25,12 @@ export class InvolvedInController {
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const body = req.body; 
-      const user = await InvolvedInService.create(body);
+      const result = await InvolvedInService.create(body);
 
       const io = req.app.get('socketio');
-      if (io) io.emit('involvedin-added', user);
+      if (io) io.emit('involvedin-added', result);
 
-      return res.status(201).json(user);
+      return res.status(201).json(result);
     } catch (err) {
       next(err);
     }
@@ -39,14 +38,18 @@ export class InvolvedInController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { participantid, reportid } = req.params;
       const body = req.body;
-      const user = await InvolvedInService.update(Number(id), body);
+      const result = await InvolvedInService.update(
+        Number(participantid), 
+        Number(reportid), 
+        body
+      );
 
       const io = req.app.get('socketio');
-      if (io) io.emit('involvedin-updated', user);
+      if (io) io.emit('involvedin-updated', result);
 
-      return res.json(user);
+      return res.json(result);
     } catch (err) {
       next(err);
     }
@@ -54,11 +57,11 @@ export class InvolvedInController {
 
   static async remove(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
-      await InvolvedInService.remove(Number(id));
+      const { participantid, reportid } = req.params;
+      await InvolvedInService.remove(Number(participantid), Number(reportid));
 
       const io = req.app.get('socketio');
-      if (io) io.emit('involvedin-deleted', id);
+      if (io) io.emit('involvedin-deleted', { participantid, reportid });
 
       return res.status(204).send();
     } catch (err) {
