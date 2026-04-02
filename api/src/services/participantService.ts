@@ -18,7 +18,7 @@ class ParticipantsService {
     participantname: string;
     pdateofbirth?: string;
     gender?: string;
-    role?: string;
+    description?: string;
     participanttype: string;
   }) {
     return await ParticipantsRepository.create(data);
@@ -30,7 +30,7 @@ class ParticipantsService {
       participantname: string;
       pdateofbirth?: string;
       gender?: string;
-      role?: string;
+      description?: string;
       participanttype?: string;
     },
   ) {

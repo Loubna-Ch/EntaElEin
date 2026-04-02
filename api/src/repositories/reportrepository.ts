@@ -26,15 +26,15 @@ export class ReportRepository {
     image_url?: string;
     userid: number;
     regionid: number;
-    hadasis: number
+    hadasid: number 
   }) {
-    const { crimedate, reportdate, description, status , image_url, userid, regionid, hadasis } = reportData;
+    const { crimedate, reportdate, description, status , image_url, userid, regionid, hadasid } = reportData;
 
     const result = await pool.query(
-      `INSERT INTO public."Report" (crimedate, reportdate, description, status, image_url, userid, regionid, hadasis)
+      `INSERT INTO public."Report" (crimedate, reportdate, description, status, image_url, userid, regionid, hadasid)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-             RETURNING reportid, crimedate, reportdate, description, status, image_url, userid, regionid, hadasis`,
-      [crimedate, reportdate, description, status, image_url || null, userid, regionid, hadasis],
+             RETURNING reportid, crimedate, reportdate, description, status, image_url, userid, regionid, hadasid`,
+      [crimedate, reportdate, description, status, image_url || null, userid, regionid, hadasid],
     );
     return result.rows[0];
   }

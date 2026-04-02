@@ -14,10 +14,10 @@ export const participantValidators = [
         .isIn(['Person', 'Object', 'Natural_Event', 'Crime_Entity', 'Other'])
         .withMessage('Invalid participant type selected'),
 
-    body('role')
+    body('description')
+        .optional({ checkFalsy: true })
         .trim()
-        .notEmpty()
-        .withMessage('Role or Description is required'),
+        .withMessage('Description is required'),
 
     body('pdateofbirth')
         .optional({ checkFalsy: true })
@@ -26,7 +26,7 @@ export const participantValidators = [
 
     body('gender')
         .optional({ checkFalsy: true })
-        .isIn(['Male', 'Female', 'Other'])
+        .isIn(['Male', 'Female'])
         .withMessage('Invalid gender assigned'),
 
     validate,
