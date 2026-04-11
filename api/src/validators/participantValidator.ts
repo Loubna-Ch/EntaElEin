@@ -15,10 +15,7 @@ export const participantValidators = [
         .isLength({ max: 100 })
         .withMessage("Participant name is too long"),
 
-    // .notEmpty()
-    // .withMessage('Participant type is required')
     // .isIn(['Person', 'Object', 'Natural_Event', 'Crime_Entity', 'Other'])
-    // .withMessage('Invalid participant type selected'),
 
     body("description")
         .optional({ checkFalsy: true })

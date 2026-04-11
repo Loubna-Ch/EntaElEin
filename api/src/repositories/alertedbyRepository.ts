@@ -24,8 +24,8 @@ export class AlertedByRepository {
     const { userid, alertid } = alertedByData;
 
     const result = await pool.query(
-      `INSERT INTO public.alertedby (userid, alertid, sentat)
-       VALUES ($1, $2, $3)
+      `INSERT INTO public.alertedby (userid, alertid)
+       VALUES ($1, $2)
        RETURNING userid, alertid`,
       [userid, alertid],
     );
@@ -42,7 +42,7 @@ export class AlertedByRepository {
       `UPDATE public.alertedby 
        SET userid = $1, alertid = $2
        WHERE userid = $3 AND alertid = $4
-       RETURNING userid, alertid, sentat`,
+       RETURNING userid, alertid`,
       [userid, alertid, oldUserId, oldAlertId],
     );
     return result.rows[0] || null;

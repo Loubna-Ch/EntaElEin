@@ -1,18 +1,17 @@
-import { body } from 'express-validator';
-import validate from '../middlewares/validate';
+import { body } from "express-validator";
+import validate from "../middlewares/validate";
 
 export const alertedByValidators = [
-    body('userid')
+    body("userid")
         .notEmpty()
-        .withMessage('User ID is required')
-        .isInt({ min: 1 })
-        .withMessage('User ID must be a positive integer'),
+        .withMessage("User ID is required")
+        .isInt({})
+        .withMessage("User ID must be a positive integer"),
 
-    body('alertid')
+    body("alertid")
         .notEmpty()
-        .withMessage('Alert ID is required')
-        .isInt({ min: 1 })
-        .withMessage('Alert ID must be a positive integer'),
-
+        .withMessage("Alert ID is required to categorize the AI alert")
+        .isInt()
+        .withMessage("Alert ID must be a valid integer"),
     validate,
 ];

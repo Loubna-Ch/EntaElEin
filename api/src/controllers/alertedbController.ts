@@ -41,9 +41,8 @@ export class AlertedByController {
       const body = req.body;
       const result = await AlertedByService.update(
         Number(userid), 
-        Number(alertid), 
-        body
-      );
+        Number(alertid)
+        , body);
 
       const io = req.app.get('socketio');
       if (io) io.emit('alertedby-updated', result);
