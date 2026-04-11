@@ -18,9 +18,11 @@ export const reportValidators = [
 
     body('status')
         .trim()
-        .optional({ checkFalsy: true }) 
-        .isIn(['Pending', 'In Progress', 'Resolved'])
-        .withMessage('Invalid status assigned'),
+        .notEmpty()
+        .withMessage('Status is required')
+        .isLength({ max: 1000 }) 
+        .withMessage('Status is too long'),
+        // .isIn(['Pending', 'In Progress', 'Resolved'])
 
     body('image_url')
         .optional({ checkFalsy: true })
