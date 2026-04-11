@@ -13,7 +13,7 @@ export const participantValidators = [
         .trim()
         .withMessage("Participant type is required")
         .isLength({ max: 100 })
-        .withMessage("Participant type is too long"),
+        .withMessage("Participant name is too long"),
 
     // .notEmpty()
     // .withMessage('Participant type is required')
