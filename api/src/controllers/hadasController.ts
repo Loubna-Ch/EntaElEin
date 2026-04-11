@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import HadasService from '../services/hadasService';
-import RegionService from 'src/services/regionService';
+import RegionService from '../services/regionService';
 
 export class HadasController {
 
