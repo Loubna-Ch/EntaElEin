@@ -1,36 +1,42 @@
-import { body } from 'express-validator';
-import validate from '../middlewares/validate';
+import { body } from "express-validator";
+import validate from "../middlewares/validate";
 
 export const participantValidators = [
-    body('participantname')
+    body("participantname")
         .optional({ checkFalsy: true })
         .trim()
         .isLength({ max: 100 })
-        .withMessage('Name is too long'),
+        .withMessage("Name is too long"),
 
-    body('participanttype')
-        .notEmpty()
-        .withMessage('Participant type is required')
-        .isIn(['Person', 'Object', 'Natural_Event', 'Crime_Entity', 'Other'])
-        .withMessage('Invalid participant type selected'),
+    body("participanttype")
+    .notEmpty()
+        .trim()
+        .withMessage("Participant type is required")
+        .isLength({ max: 100 })
+        .withMessage("Participant type is too long"),
 
-    body('description')
+    // .notEmpty()
+    // .withMessage('Participant type is required')
+    // .isIn(['Person', 'Object', 'Natural_Event', 'Crime_Entity', 'Other'])
+    // .withMessage('Invalid participant type selected'),
+
+    body("description")
         .optional({ checkFalsy: true })
         .trim()
         .notEmpty()
-        .withMessage('Description is required'),
+        .withMessage("Description is required"),
 
-    body('pdateofbirth')
+    body("pdateofbirth")
         .optional({ checkFalsy: true })
         .isISO8601()
         .notEmpty()
-        .withMessage('Invalid date format'),
+        .withMessage("Invalid date format"),
 
-    body('gender')
+    body("gender")
         .optional({ checkFalsy: true })
-        .isIn(['Male', 'Female'])
+        .isIn(["Male", "Female"])
         .notEmpty()
-        .withMessage('Invalid gender assigned'),
+        .withMessage("Invalid gender assigned"),
 
     validate,
 ];
