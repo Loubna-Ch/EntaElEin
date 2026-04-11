@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import UserService from '../services/userService';
+import { ApiError } from '../middlewares/ApiError';
 
 export class UserController {
 
@@ -14,13 +15,31 @@ export class UserController {
 
   static async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params; 
-      const user = await UserService.getById(Number(id));
+      const id = Number(req.params.id);
+      if (Number.isNaN(id) || id < 1) {
+        throw ApiError.badRequest('Invalid user id');
+      }
+      const user = await UserService.getById(id);
       return res.json(user);
     } catch (err) {
       next(err);
     }
   }
+
+  static async getByEmail(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { email } = req.params;
+
+    if (typeof email !== 'string') {
+      throw ApiError.badRequest("Invalid email format");
+    }
+
+    const user = await UserService.getByEmail(email);
+    return res.json(user);
+  } catch (err) {
+    next(err);
+  }
+}
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
@@ -38,9 +57,12 @@ export class UserController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = Number(req.params.id);
+      if (Number.isNaN(id) || id < 1) {
+        throw ApiError.badRequest('Invalid user id');
+      }
       const body = req.body;
-      const user = await UserService.update(Number(id), body);
+      const user = await UserService.update(id, body);
 
       const io = req.app.get('socketio');
       if (io) io.emit('user-updated', user);
@@ -53,8 +75,11 @@ export class UserController {
 
   static async remove(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
-      await UserService.remove(Number(id));
+      const id = Number(req.params.id);
+      if (Number.isNaN(id) || id < 1) {
+        throw ApiError.badRequest('Invalid user id');
+      }
+      await UserService.remove(id);
 
       const io = req.app.get('socketio');
       if (io) io.emit('user-deleted', id);

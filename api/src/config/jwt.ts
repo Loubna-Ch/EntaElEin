@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';
+const JWT_SECRET = process.env.JWT_ACCESS_SECRET;
+const JWT_EXPIRES_IN = process.env.JWT_ACCESS_EXPIRATION || '1h';
 const JWT_ISSUER = process.env.JWT_ISSUER || 'enta-el-ein-api';
 
 if (!JWT_SECRET) {

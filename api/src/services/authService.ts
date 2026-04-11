@@ -2,9 +2,10 @@ import bcrypt from "bcryptjs";
 import { UserRepository } from "../repositories/userRepository";
 import { ApiError } from "../middlewares/ApiError";
 import jwt from "jsonwebtoken";
+import { signAccessToken } from "../config/jwt";
 
 const SALT_ROUNDS = 10;
-const ALLOWED_ROLES = new Set(["Admin", "Officer", "Citizen"]);
+const ALLOWED_ROLES = new Set(["admin", "officer", "citizen"]);
 
 class AuthService {
     static async register(
@@ -58,13 +59,10 @@ class AuthService {
             throw ApiError.unauthorized("Invalid email or password.");
         }
 
-        const payload = { id: user.id, role: user.role };
+        const payload = { id: user.userid, email: user.email, role: user.role };
 
-        const accessToken = jwt.sign(
-            payload,
-            process.env.JWT_ACCESS_SECRET!,
-            { expiresIn: process.env.JWT_ACCESS_EXPIRATION as any},
-        );
+        const accessToken = signAccessToken(payload);
+        
 
         // 3. Generate Refresh Token
         const refreshToken = jwt.sign(

@@ -40,9 +40,12 @@ export const userValidators = [
         .withMessage('Region ID must be an integer'),
 
     body('role')
-        .optional()
-        .isIn(['Citizen', 'Officer', 'Admin'])
-        .withMessage('Invalid role assigned'),
+        .trim()
+        .notEmpty()
+        .withMessage('Role name is required')
+        .isLength({ max: 100 })
+        .withMessage('Role name is too long'),
+
 
     validate,
 ];
