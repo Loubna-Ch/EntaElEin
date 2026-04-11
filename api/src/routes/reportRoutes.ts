@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ReportController } from 'src/controllers/reportController';
-import { reportValidators } from 'src/validators/reportValidator';
+import { ReportController } from '../controllers/reportController';
+import { reportValidators } from '../validators/reportValidator';
 
 const router = Router();
 

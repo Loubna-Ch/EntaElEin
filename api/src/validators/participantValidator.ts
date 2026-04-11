@@ -17,16 +17,19 @@ export const participantValidators = [
     body('description')
         .optional({ checkFalsy: true })
         .trim()
+        .notEmpty()
         .withMessage('Description is required'),
 
     body('pdateofbirth')
         .optional({ checkFalsy: true })
         .isISO8601()
+        .notEmpty()
         .withMessage('Invalid date format'),
 
     body('gender')
         .optional({ checkFalsy: true })
         .isIn(['Male', 'Female'])
+        .notEmpty()
         .withMessage('Invalid gender assigned'),
 
     validate,

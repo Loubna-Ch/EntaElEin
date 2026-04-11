@@ -22,7 +22,7 @@ class ReportService {
         image_url?: string;
         userid: number;
         regionid: number;
-        hadasis: number;
+        hadasid: number;
     }) {
         return await ReportRepository.create(data);
     }
@@ -37,7 +37,7 @@ class ReportService {
             image_url?: string;
             userid: number;
             regionid: number;
-            hadasis: number;
+            hadasid: number;
         },
     ) {
         const report = await ReportRepository.update(id, updateData);

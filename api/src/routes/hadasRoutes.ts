@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { HadasController } from 'src/controllers/hadasController';
-import { hadasValidators } from 'src/validators/hadasValidator';
+import { HadasController } from '../controllers/hadasController';
+import { hadasValidators } from '../validators/hadasValidator';
 
 
 const router = Router();

@@ -1,4 +1,4 @@
-import { UserRepository } from 'src/repositories/userRepository';
+import { UserRepository } from '../repositories/userRepository';
 import { ApiError } from '../middlewares/ApiError';
 
 class UserService {

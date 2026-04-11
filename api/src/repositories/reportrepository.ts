@@ -4,7 +4,7 @@ export class ReportRepository {
     
   static async findAll() {
     const result = await pool.query(
-      'SELECT * FROM public."Report" ORDER BY reportid ASC',
+      'SELECT * FROM public."report" ORDER BY reportid ASC',
     );
     return result.rows;
   }
@@ -16,8 +16,7 @@ export class ReportRepository {
     );
     return result.rows[0] || null;
   }
-
-
+  
   static async create(reportData: {
     crimedate: string;
     reportdate: string;
@@ -49,15 +48,15 @@ export class ReportRepository {
       image_url?: string;
       userid: number;
       regionid: number;
-      hadasis: number;
+      hadasid: number;
     },
   ) {
-    const { crimedate, reportdate, description, status, image_url, userid, regionid, hadasis } = data;
+    const { crimedate, reportdate, description, status, image_url, userid, regionid, hadasid } = data;
     const result = await pool.query(
       `UPDATE public."Report" 
-             SET crimedate = $1, reportdate = $2, description = $3, status = $4, image_url = $5, userid = $6, regionid = $7, hadasis = $8
+             SET crimedate = $1, reportdate = $2, description = $3, status = $4, image_url = $5, userid = $6, regionid = $7, hadasid = $8
              WHERE reportid = $9
-             RETURNING reportid, crimedate, reportdate, description, status, image_url, userid, regionid, hadasis`,
+             RETURNING reportid, crimedate, reportdate, description, status, image_url, userid, regionid, hadasid`,
       [
         crimedate,
         reportdate,
@@ -66,7 +65,7 @@ export class ReportRepository {
         image_url || null,
         userid,
         regionid,
-        hadasis,
+        hadasid,
         id
       ],
     );

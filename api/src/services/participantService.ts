@@ -1,5 +1,5 @@
 import { ApiError } from '../middlewares/ApiError';
-import { ParticipantsRepository } from 'src/repositories/participantRepository';
+import { ParticipantsRepository } from '../repositories/participantRepository';
 
 class ParticipantsService {
   static async getAll() {

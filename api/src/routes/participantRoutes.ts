@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ParticipantController } from 'src/controllers/participantController';
-import { participantValidators } from 'src/validators/participantValidator';
+import { ParticipantController } from '../controllers/participantController';
+import { participantValidators } from '../validators/participantValidator';
 
 const router = Router();
 

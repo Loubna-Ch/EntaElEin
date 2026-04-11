@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import ParticipantsService from 'src/services/participantService';
+import ParticipantsService from '../services/participantService';
 
 export class ParticipantController {
 

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import AlertedByService from 'src/services/alertedbyService';
+import AlertedByService from '../services/alertedbyService';
 
 export class AlertedByController {
 

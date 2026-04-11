@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { AlertedByController } from 'src/controllers/alertedbController';
-import { alertedByValidators } from 'src/validators/alertedbyValidator';
+import { AlertedByController } from '../controllers/alertedbController';
+import { alertedByValidators } from '../validators/alertedbyValidator';
 
 const router = Router();
 
