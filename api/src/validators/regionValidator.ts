@@ -21,7 +21,7 @@ export const regionValidators = [
             'Zahlé', 'West Beqaa', 'Rashaya', 'Baalbek', 'Hermel',
             'Sidon', 'Tyre', 'Jezzine', 'Nabatieh', 'Marjeyoun', 'Hasbaya', 'Bint Jbeil'
         ])
-        .withMessage('Please select a valid Lebanese Region or Tripoli Neighborhood'),
+        .withMessage('Please select a valid Lebanese Region'),
 
     validate,
 ];

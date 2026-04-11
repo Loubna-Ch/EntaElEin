@@ -4,14 +4,14 @@ export class RegionRepository {
     
   static async findAll() {
     const result = await pool.query(
-      'SELECT * FROM public."Region" ORDER BY regionid ASC',
+      'SELECT * FROM public."region" ORDER BY regionid ASC',
     );
     return result.rows;
   }
 
   static async findById(id: number) {
     const result = await pool.query(
-      'SELECT * FROM public."Region" WHERE regionid  = $1',
+      'SELECT * FROM public."region" WHERE regionid  = $1',
       [id],
     );
     return result.rows[0] || null;
@@ -24,9 +24,9 @@ export class RegionRepository {
     const { regionname } = regionData;
 
     const result = await pool.query(
-      `INSERT INTO public."Region" (regionname)
+      `INSERT INTO public."region" (regionname)
              VALUES ($1)
-             RETURNING regionid, regionname, description`,
+             RETURNING regionid, regionname`,
       [regionname],
     );
     return result.rows[0];
@@ -40,12 +40,12 @@ export class RegionRepository {
   ) {
     const { regionname } = data;
     const result = await pool.query(
-      `UPDATE public."Region" 
+      `UPDATE public."region" 
              SET regionname = $1
              WHERE regionid = $2
              RETURNING regionid, regionname`,
       [
-        regionname || null,
+        regionname || null, id,
       ],
     );
     return result.rows[0] || null;
@@ -53,7 +53,7 @@ export class RegionRepository {
 
   static async remove(id: number) {
     const result = await pool.query(
-      'DELETE FROM public."Region" WHERE regionid = $1',
+      'DELETE FROM public."region" WHERE regionid = $1',
       [id],
     );
     return (result.rowCount ?? 0) > 0;
