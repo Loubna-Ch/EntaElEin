@@ -43,7 +43,7 @@ export class HadasRepository {
              WHERE hadasid = $2
              RETURNING hadasid, hadasdescription`,
       [
-        hadasdescription || null,
+        hadasdescription || null, id,
       ],
     );
     return result.rows[0] || null;

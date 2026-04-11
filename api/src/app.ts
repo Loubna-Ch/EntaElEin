@@ -35,7 +35,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// --- ROUTES ---
 
 app.use('/api/alertedby', alertedbyRoutes);
 app.use('/api/alert', alertRoutes);
@@ -49,7 +48,6 @@ app.use('/api/report', reportRoutes);
 app.use('/api/user', userRoutes);
 
 
-// --- POST-ROUTE MIDDLEWARE ---
 app.use(notFound);
 app.use(errorHandler);
 
