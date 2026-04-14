@@ -130,6 +130,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS public.crimereport (
     reportid SERIAL NOT NULL,
     crimedate date NOT NULL,
+    crimetime time without time zone,
     reportdate timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     description varchar(1000) NOT NULL,
     status character varying(50) DEFAULT 'Pending',
@@ -142,6 +143,15 @@ CREATE TABLE IF NOT EXISTS public.crimereport (
 
 DO $$ 
 BEGIN 
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+          AND table_name = 'crimereport'
+          AND column_name = 'crimetime'
+    ) THEN
+        ALTER TABLE public.crimereport ADD COLUMN crimetime time without time zone;
+    END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'crimereport_status_check') THEN
         ALTER TABLE public.crimereport ADD CONSTRAINT crimereport_status_check CHECK (status IN ('Pending', 'In Progress', 'Resolved'));
     END IF;

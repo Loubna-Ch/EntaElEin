@@ -9,6 +9,11 @@ export const reportValidators = [
         .isISO8601()
         .withMessage('Crime date must be a valid date (YYYY-MM-DD)'),
 
+    body('crimetime')
+        .optional({ checkFalsy: true })
+        .matches(/^([01]\d|2[0-3]):[0-5]\d$/)
+        .withMessage('Crime time must be a valid time (HH:MM)'),
+
     body('description')
         .trim()
         .notEmpty()

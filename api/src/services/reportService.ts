@@ -16,6 +16,7 @@ class ReportService {
 
     static async create(data: {
         crimedate: string;
+        crimetime?: string;
         reportdate: string;
         description: string;
         status: string;
@@ -31,6 +32,7 @@ class ReportService {
         id: number,
         updateData: {
             crimedate: string;
+            crimetime?: string;
             reportdate: string;
             description: string;
             status: string;

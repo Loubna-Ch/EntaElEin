@@ -1,0 +1,101 @@
+# ------------------------------
+# App (frontend)
+# ------------------------------
+/app/logs
+/app/*.log
+/app/npm-debug.log*
+/app/yarn-debug.log*
+/app/yarn-error.log*
+/app/pnpm-debug.log*
+/app/lerna-debug.log*
+
+/app/node_modules
+/app/dist
+/app/dist-ssr
+/app/*.local
+/app/.env
+/app/.env.*
+!/app/.env.example
+
+# ------------------------------
+# API (backend)
+# ------------------------------
+/api/dist
+/api/node_modules
+/api/build
+/api/*.tsbuildinfo
+
+/app/*.tsbuildinfo
+
+/api/logs
+/api/*.log
+/api/npm-debug.log*
+/api/pnpm-debug.log*
+/api/yarn-debug.log*
+/api/yarn-error.log*
+/api/lerna-debug.log*
+
+/api/coverage
+/api/.nyc_output
+
+/api/.env
+/api/.env.development.local
+/api/.env.test.local
+/api/.env.production.local
+/api/.env.local
+!/api/.env.example
+
+# ------------------------------
+# Secrets / tokens
+# ------------------------------
+*.pem
+*.p12
+*.pfx
+*.key
+*.crt
+
+.env
+.env.*
+!.env.example
+
+# Figma token files (common naming)
+.figma-token
+.figma-token.json
+figma-token.txt
+figma_token.txt
+figma.tokens.json
+
+/api/.temp
+/api/.tmp
+
+/api/pids
+/api/*.pid
+/api/*.seed
+/api/*.pid.lock
+
+/api/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ------------------------------
+# IDE / OS
+# ------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.idea
+api/.idea
+api/.project
+api/.classpath
+api/.c9/
+api/*.launch
+api/.settings/
+api/*.sublime-workspace
+
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
