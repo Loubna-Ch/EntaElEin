@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import { type UserRoleType, UserRole } from "../types/index";
-import { Shield, User, Lock, Loader2 } from "lucide-react";
+import { Shield, Lock, Loader2 } from "lucide-react";
 
 export function LoginPage() {
   const { login } = useAuth();
@@ -11,7 +10,6 @@ export function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedRole, setSelectedRole] = useState<UserRoleType>(UserRole.CITIZEN);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -107,45 +105,7 @@ export function LoginPage() {
               />
             </div>
 
-            {/* UI Role Selection (Visual helper for the user) */}
-            <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
-                <User className="w-3 h-3" />
-                Select Access Role
-              </label>
-              <div className="grid grid-cols-1 gap-3">
-                {[
-                  { value: UserRole.CITIZEN, label: "Citizen", desc: "Report & monitor local incidents" },
-                  { value: UserRole.ADMIN, label: "Security Officer", desc: "Manage & verify regional reports" },
-                ].map((option) => (
-                  <label
-                    key={option.value}
-                    className={`flex items-start p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                      selectedRole === option.value 
-                        ? "border-[#dc143c] bg-[#dc143c]/5 shadow-[0_0_15px_rgba(220,20,60,0.1)]" 
-                        : "border-white/5 bg-[#0f1729] hover:bg-white/5"
-                    }`}
-                  >
-                    <div className="mt-1">
-                       <input
-                        type="radio"
-                        name="role"
-                        value={option.value}
-                        checked={selectedRole === option.value}
-                        onChange={() => setSelectedRole(option.value as UserRoleType)}
-                        className="accent-[#dc143c] w-4 h-4"
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <p className={`font-bold text-sm ${selectedRole === option.value ? "text-white" : "text-slate-400"}`}>
-                        {option.label}
-                      </p>
-                      <p className="text-[#64748b] text-[11px] mt-0.5 leading-tight">{option.desc}</p>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
+
 
             <motion.button
               whileHover={{ scale: 1.01 }}

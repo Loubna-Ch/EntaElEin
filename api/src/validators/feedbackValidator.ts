@@ -5,7 +5,7 @@ export const feedbackValidators = [
     body('content')
         .optional({ checkFalsy: true })
         .trim()
-        .isLength({ max: 1000 }) // Increased to 1000 to match 'text' type better
+        .isLength({ max: 1000 }) 
         .withMessage('Feedback message is too long (max 1000 characters)'),
 
     body('rating')
