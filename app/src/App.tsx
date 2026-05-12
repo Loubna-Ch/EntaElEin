@@ -6,6 +6,7 @@ import { CitizenDashboard } from "./features/citizen/pages/CitizenDashboard";
 import { AdminDashboard } from "./features/admin/pages/AdminDashboard";
 import { AdminStatisticsPage } from "./features/admin/pages/AdminStatisticsPage";
 import { ResolvedReportsPage } from "./features/admin/pages/ResolvedReportsPage";
+import { RejectedReportsPage } from "./features/admin/pages/RejectedReportsPage";
 import { ParticipantsInvolvedPage } from "./features/admin/pages/ParticipantsInvolvedPage";
 import { FeedbackPage } from "./features/admin/pages/FeedbackPage";
 import IncidentReportForm from "./features/report/pages/IncidentReportForm";
@@ -64,6 +65,15 @@ export default function App() {
         element={
           <RoleBasedRoute requiredRole={UserRole.ADMIN}>
             <ResolvedReportsPage />
+          </RoleBasedRoute>
+        }
+      />
+
+      <Route
+        path="/dashboard/admin/rejected"
+        element={
+          <RoleBasedRoute requiredRole={UserRole.ADMIN}>
+            <RejectedReportsPage />
           </RoleBasedRoute>
         }
       />

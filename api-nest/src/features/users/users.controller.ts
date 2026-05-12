@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Patch, Request, BadRequestException } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -30,5 +30,25 @@ export class UsersController {
 	@Get()
 	findAll() {
 		return this.usersService.findAll();
+	}
+
+	@ApiBearerAuth()
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({ summary: 'Update current user region' })
+	@ApiResponse({ status: 200, description: 'Region updated successfully.' })
+	@Patch('me/region')
+	async updateMyRegion(@Request() req: any, @Body() body: { regionid?: number }) {
+		const userid = Number(req.user?.userid);
+		const regionid = Number(body?.regionid);
+
+		if (!userid) {
+			throw new BadRequestException('Invalid authenticated user');
+		}
+		if (!Number.isInteger(regionid) || regionid <= 0) {
+			throw new BadRequestException('regionid must be a positive integer');
+		}
+
+		const updated = await this.usersService.updateRegion(userid, regionid);
+		return this.usersService.sanitizeUser(updated);
 	}
 }

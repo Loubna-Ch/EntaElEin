@@ -50,6 +50,15 @@ export class UsersService {
     return updated;
   }
 
+  async updateRegion(userid: number, regionid: number): Promise<User> {
+    await this.usersRepository.update({ userid }, { regionid });
+    const updated = await this.findById(userid);
+    if (!updated) {
+      throw new NotFoundException(`User with id ${userid} not found`);
+    }
+    return updated;
+  }
+
   async findAll(): Promise<User[]> {
     return this.usersRepository.find({
       select: [

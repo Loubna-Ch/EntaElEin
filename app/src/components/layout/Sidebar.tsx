@@ -7,15 +7,23 @@ import {
   MessageSquare,
   Shield,
   User as UserIcon,
+  XCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { lebaneseRegions } from "../../data/regions";
 
 export function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout, updateProfile } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState<number>(user?.regionid ?? 1);
+  const [regionSaving, setRegionSaving] = useState(false);
+
+  useEffect(() => {
+    setSelectedRegion(user?.regionid ?? 1);
+  }, [user?.regionid]);
 
   // Build navigation items based on user role
   const isAdmin = user?.role?.toLowerCase() === "admin" ||
@@ -33,6 +41,11 @@ export function Sidebar() {
         path: "/dashboard/admin/resolved",
         label: "Resolved Reports",
         icon: AlertCircle,
+      },
+      {
+        path: "/dashboard/admin/rejected",
+        label: "Rejected Reports",
+        icon: XCircle,
       },
       {
         path: "/dashboard/admin/participants",
@@ -57,6 +70,17 @@ export function Sidebar() {
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handleRegionSave = async () => {
+    try {
+      setRegionSaving(true);
+      await updateProfile({ regionid: Number(selectedRegion) });
+    } catch {
+      // fetch interceptor already shows API/network errors.
+    } finally {
+      setRegionSaving(false);
+    }
   };
 
   return (
@@ -105,6 +129,34 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {!isAdmin && !collapsed && (
+          <div className="mt-6 p-3 rounded-lg bg-[#0f1729] border border-white/10">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-[#94a3b8] mb-2 font-semibold">
+              Change Region
+            </p>
+            <select
+              className="w-full bg-[#1a2744] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#dc143c]"
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(Number(e.target.value))}
+              disabled={regionSaving}
+            >
+              {lebaneseRegions.map((region, index) => (
+                <option key={region} value={index + 1}>
+                  {region}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={handleRegionSave}
+              disabled={regionSaving}
+              className="mt-2 w-full rounded-lg bg-[#dc143c] py-2 text-sm font-semibold text-white hover:bg-[#c41236] disabled:opacity-70"
+            >
+              {regionSaving ? "Saving..." : "Save Region"}
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* User Section */}
