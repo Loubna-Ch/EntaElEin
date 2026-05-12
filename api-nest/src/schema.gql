@@ -1,0 +1,181 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Region {
+  regionid: Int!
+  regionname: String!
+}
+
+type Participant {
+  participantid: Int!
+  participantname: String
+  description: String
+  pdateofbirth: DateTime
+  gender: String
+  participanttype: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type AlertFromAI {
+  alertid: Int!
+  title: String!
+  message: String!
+  hadasid: Int!
+}
+
+type Hadas {
+  hadasid: Int!
+  hadasdescription: String!
+}
+
+type CrimeReport {
+  reportid: Int!
+  crimedate: DateTime!
+  crimetime: String
+  reportdate: DateTime!
+  description: String!
+  status: String!
+  image_url: String
+  userid: Int
+  regionid: Int
+  hadasid: Int
+}
+
+type Feedback {
+  feedbackid: Int!
+  content: String
+  rating: Int!
+  dateposted: DateTime!
+  userid: Int
+}
+
+type Query {
+  users: JSON!
+  regions: [Region!]!
+  region(id: Int!): Region!
+  hadasList: [Hadas!]!
+  hadas(id: Int!): Hadas!
+  feedbackList: [Feedback!]!
+  feedback(id: Int!): Feedback!
+  participants: [Participant!]!
+  participant(id: Int!): Participant!
+  alerts: [AlertFromAI!]!
+  alert(id: Int!): AlertFromAI!
+  reports: [CrimeReport!]!
+  report(id: Int!): CrimeReport!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  createUser(input: JSONObject!): JSON!
+  createRegion(input: CreateRegionDto!): Region!
+  updateRegion(id: Int!, input: UpdateRegionDto!): Region!
+  deleteRegion(id: Int!): Boolean!
+  createHadas(input: CreateHadasDto!): Hadas!
+  updateHadas(id: Int!, input: UpdateHadasDto!): Hadas!
+  deleteHadas(id: Int!): Boolean!
+  createFeedback(input: CreateFeedbackInput!): Feedback!
+  updateFeedback(id: Int!, input: UpdateFeedbackInput!): Feedback!
+  deleteFeedback(id: Int!): Boolean!
+  createParticipant(input: CreateParticipantDto!): Participant!
+  updateParticipant(id: Int!, input: UpdateParticipantDto!): Participant!
+  deleteParticipant(id: Int!): Boolean!
+  createAlert(input: CreateAlertDto!): AlertFromAI!
+  updateAlert(id: Int!, input: UpdateAlertDto!): AlertFromAI!
+  deleteAlert(id: Int!): Boolean!
+  createReport(input: CreateReportInput!): CrimeReport!
+  updateReport(id: Int!, input: UpdateReportInput!): CrimeReport!
+  deleteReport(id: Int!): Boolean!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input CreateRegionDto {
+  regionname: String!
+}
+
+input UpdateRegionDto {
+  regionname: String!
+}
+
+input CreateHadasDto {
+  hadasdescription: String!
+}
+
+input UpdateHadasDto {
+  hadasdescription: String!
+}
+
+input CreateFeedbackInput {
+  content: String
+  rating: Int!
+  userid: Int!
+}
+
+input UpdateFeedbackInput {
+  content: String
+  rating: Int
+  userid: Int
+}
+
+input CreateParticipantDto {
+  participantname: String
+  description: String
+  pdateofbirth: DateTime
+  gender: String
+  participanttype: String!
+}
+
+input UpdateParticipantDto {
+  participantname: String
+  description: String
+  pdateofbirth: DateTime
+  gender: String
+  participanttype: String
+}
+
+input CreateAlertDto {
+  title: String!
+  message: String!
+  hadasid: Int!
+}
+
+input UpdateAlertDto {
+  title: String
+  message: String
+  hadasid: Int
+}
+
+input CreateReportInput {
+  crimedate: DateTime!
+  crimetime: String
+  description: String!
+  status: String
+  image_url: String
+  userid: Int!
+  regionid: Int
+  hadasid: Int
+}
+
+input UpdateReportInput {
+  crimedate: DateTime
+  crimetime: String
+  description: String
+  status: String
+  image_url: String
+  userid: Int
+  regionid: Int
+  hadasid: Int
+}

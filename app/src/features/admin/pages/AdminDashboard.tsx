@@ -1,0 +1,1 @@
+export { AdminDashboard } from "../../../components/dashboards/AdminDashboard";
